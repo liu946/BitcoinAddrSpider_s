@@ -9,9 +9,10 @@
 #
 
 BOT_NAME = 'BitcoinAddrSpider'
-
+DEPTH_LIMIT = 2
 SPIDER_MODULES = ['BitcoinAddrSpider.spiders']
 NEWSPIDER_MODULE = 'BitcoinAddrSpider.spiders'
+DOWNLOAD_DELAY = 0.4 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'BitcoinAddrSpider (+http://www.yourdomain.com)'
