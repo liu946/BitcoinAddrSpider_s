@@ -20,12 +20,12 @@ class BitcoinAddrSpider(scrapy.Spider):
         # "https://bitcointalk.org/index.php?board=14.0"
     ]
 
-	rules=(
-		Rule(LinkExtractor(allow=('board', ))),
-		Rule(LinkExtractor(allow=('topic', )),callback='parse_item'),
-	)
+	# rules=(
+	# 	Rule(LinkExtractor(allow=('board', ))),
+	# 	Rule(LinkExtractor(allow=('topic', )),callback='parse_item'),
+	# )
   
-	def parse_item(self, response):
+	def parse(self, response):
 		#print response.xpath('//tbody').extract() , "!!!"
 		for line in response.xpath('//div[@class="signature sig14351"]'):
 			#print line.extract(), ' !!! ';
@@ -39,15 +39,11 @@ class BitcoinAddrSpider(scrapy.Spider):
 				self.item[Username]=list(set(self.item[Username]))
 			except KeyError:
 				self.item[Username]=[Addr]
-			time.sleep(0.1)
-				
-
-			
 			#print item['Username'] , ' : ' , item['Addr'] , "!!!!\n"
 			#yield item
 	def closed(self,reason):
 		print self.item,"!!!"
-		fileHandle = open ( 'output.json', 'wb' )
+		fileHandle = open ( 'output.json', 'w' )
 		fileHandle.write (json.dumps(self.item))
 		fileHandle.close() 
 
